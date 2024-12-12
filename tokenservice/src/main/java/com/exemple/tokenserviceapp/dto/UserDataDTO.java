@@ -1,19 +1,20 @@
 package com.exemple.tokenserviceapp.dto;
 
+import org.springframework.beans.BeanUtils;
+
 import com.exemple.tokenserviceapp.entities.User;
 
-public class UserDataDTO {
+import jakarta.validation.constraints.NotBlank;
 
+public class UserDataDTO{
+
+    @NotBlank
     String username;
+    @NotBlank
     String password;
 
-    public UserDataDTO() {
+    public UserDataDTO(User entity) {
+        BeanUtils.copyProperties(entity, this);
     }
 
-    public static User getUser(String username, String password){
-        User user = new User(username, password);
-        return user;
-    }
-
-    
-} 
+}

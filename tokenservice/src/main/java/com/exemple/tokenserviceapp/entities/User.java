@@ -23,8 +23,12 @@ public class User {
     private String password;
 
     public User(String username, String password) {
-        this.username = username.toLowerCase();
-        this.password = password;
+        if (!username.equalsIgnoreCase(password)) {
+            this.username = username;
+            this.password = password;
+        } else {
+            throw new IllegalArgumentException("Username and password cannot be the same");
+        }
     }
 
     public Long getId() {
