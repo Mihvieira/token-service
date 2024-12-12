@@ -1,29 +1,27 @@
-package com.exemple.tokenservice.entities;
+package com.exemple.tokenserviceapp.entities;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "users")
+@EqualsAndHashCode(of = "id")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Nonnull
     private String username;
-    @Nonnull
     private String password;
-    UserToken token;
+    String token;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        token.setToken(username);
     }
 
     public Long getId() {
@@ -46,14 +44,16 @@ public class User {
         this.password = password;
     }
 
-    public UserToken getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(UserToken token) {
+    public void setToken(String token) {
         this.token = token;
     }
 
+    public String toString() {
+        return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+    }
     
-
 }
