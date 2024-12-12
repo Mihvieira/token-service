@@ -1,5 +1,7 @@
 package com.exemple.tokenserviceapp.controller;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties.Credential;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +39,9 @@ public class UserController {
     
 
     @PostMapping("/authenticate")
-    public ResponseEntity<User> authenticate(@RequestBody Credential credential) {
+    public ResponseEntity<User> authenticate(@RequestBody Credential credential) throws InterruptedException {
         User user = authenticationService.authenticateUser(credential.getUsername().toLowerCase(), credential.getPassword());
+        TimeUnit.MILLISECONDS.sleep(1000);
         if (user != null) {
             return ResponseEntity.ok().body(user);
         } else{
