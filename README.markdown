@@ -1,5 +1,4 @@
-# Aplicação Java Spring para Login de Usuários e geração de Tokens
-
+# Aplicação Java Spring para Login de Usuários e geração de Tokens - em andamento
 
 ## Descrição
 Esta aplicação Java, desenvolvida com o framework Spring Boot, oferece funcionalidades básicas para gerenciar usuários, incluindo criação, autenticação e geração de tokens de acesso. A aplicação utiliza o banco de dados MySQL para armazenar as informações dos usuários e o Spring Data JPA para interagir com o banco de dados.
