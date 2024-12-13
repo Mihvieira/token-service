@@ -4,23 +4,21 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
-
+@Service
 public class UserTokenGenerator {
 
     private String token;
-    private Long userId;
 
-    public UserTokenGenerator(Long userId) {
-        this.userId = userId;
+    public UserTokenGenerator() {
     }
 
     public String getToken() {
         return this.token;
     }
 
-    public String setToken(Long userId){
+    public String setToken(String userId){
         Instant instNow = Instant.now();
-        this.token = this.userId.toString() + instNow.toString();
+        this.token = userId + instNow.toString();
         return this.token;
     }
 

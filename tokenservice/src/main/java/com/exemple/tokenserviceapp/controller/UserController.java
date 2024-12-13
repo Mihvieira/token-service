@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.exemple.tokenserviceapp.entities.User;
 import com.exemple.tokenserviceapp.repository.UserRepository;
 import com.exemple.tokenserviceapp.service.AuthenticationService;
-import com.exemple.tokenserviceapp.service.UserValidationData;
+import com.exemple.tokenserviceapp.service.UserTokenGenerator;
 
 import jakarta.transaction.Transactional;
+
 
 
 
@@ -64,16 +65,20 @@ public class UserController {
         else{
             User newUser = new User(credential.getUsername(), credential.getPassword());
             repository.save(newUser);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(newUser.getUsername());
         }
     }
     
-
-    public ResponseEntity<String> issueToken(User user) {
-        return ResponseEntity.ok().body("token");
-    }
-
-    public ResponseEntity<String> requestToken(Credential credential) {
-        return ResponseEntity.ok().body("token");
+    @GetMapping("token/{username}")
+    public ResponseEntity<String> requestToken(@PathVariable String username) throws InterruptedException {
+        var user = repository.findByUsername(username);
+        TimeUnit.MILLISECONDS.sleep(1000);
+        if (user != null) {
+            var tokenService = new UserTokenGenerator();
+            tokenService.setToken(username);
+            return ResponseEntity.ok(tokenService.getToken());
+        } else{
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

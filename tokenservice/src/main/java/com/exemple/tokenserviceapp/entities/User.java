@@ -1,25 +1,32 @@
 package com.exemple.tokenserviceapp.entities;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "username")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
+    @NotBlank
+    @Column(unique = true)
     private String username;
+    @NotBlank
     private String password;
 
     public User(String username, String password) {
@@ -29,10 +36,6 @@ public class User {
         } else {
             throw new IllegalArgumentException("Username and password cannot be the same");
         }
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getUsername() {
@@ -49,10 +52,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String toString() {
-        return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
     }
     
 }
